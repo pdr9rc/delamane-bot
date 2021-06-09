@@ -22,7 +22,6 @@ namespace DELAMANE_BOT
                 var intent = JsonConvert.DeserializeObject<PutIntentRequest>(File.ReadAllText(file));
                 var res = await lex.PutIntentAsync(intent);
                 delamane.Intents.Add(new Intent() { IntentName = intent.Name, IntentVersion =  res.Version});
-                await lex.PutIntentAsync(intent);
             }
             await lex.PutBotAsync(delamane);
             await lex.CreateBotVersionAsync(new CreateBotVersionRequest() { Name = delamane.Name });
