@@ -14,14 +14,25 @@ namespace DELAMANE_BOT
         //TODO, add checksums, add putbotalias
         async static Task Main(string[] args)
         {
+
             PutBotRequest delamane = JsonConvert.DeserializeObject<PutBotRequest>(File.ReadAllText("delamane.json"));
             delamane.CreateVersion = true;
             var lex = new AmazonLexModelBuildingServiceClient(args[0], args[1], RegionEndpoint.EUCentral1);
+            try
+            {
+                delamane.Checksum = (await lex.GetBotAsync(new GetBotRequest() { Name = delamane.Name })).Checksum;
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
             string[] files = Directory.GetFiles($"{Directory.GetCurrentDirectory()}/Intents", "*.json", SearchOption.AllDirectories);
             Console.WriteLine($"Number of Intents : {files.Length}");
             foreach (string file in files)
             {
                 var intent = JsonConvert.DeserializeObject<PutIntentRequest>(File.ReadAllText(file));
+                try
+                {
+                    intent.Checksum = (await lex.GetIntentAsync(new GetIntentRequest() { Name = delamane.Name })).Checksum;
+                }
+                catch(Exception e) { Console.WriteLine(e.Message); }
                 intent.CreateVersion = true;
                 var res = await lex.PutIntentAsync(intent);
                 delamane.Intents.Add(new Intent() { IntentName = intent.Name, IntentVersion =  res.Version});
