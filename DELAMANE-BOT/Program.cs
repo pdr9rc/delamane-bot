@@ -11,9 +11,11 @@ namespace DELAMANE_BOT
 {
     class Program
     {
+        //TODO, add checksums, add putbotalias
         async static Task Main(string[] args)
         {
             PutBotRequest delamane = JsonConvert.DeserializeObject<PutBotRequest>(File.ReadAllText("delamane.json"));
+            delamane.CreateVersion = true;
             var lex = new AmazonLexModelBuildingServiceClient(args[0], args[1], RegionEndpoint.EUCentral1);
             string[] files = Directory.GetFiles($"{Directory.GetCurrentDirectory()}/Intents", "*.json", SearchOption.AllDirectories);
             Console.WriteLine($"Number of Intents : {files.Length}");
