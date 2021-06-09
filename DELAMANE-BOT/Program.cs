@@ -20,7 +20,8 @@ namespace DELAMANE_BOT
             foreach (string file in files)
             {
                 var intent = JsonConvert.DeserializeObject<PutIntentRequest>(File.ReadAllText(file));
-                delamane.Intents.Add(new Intent() { IntentName = intent.Name });
+                var res = await lex.PutIntentAsync(intent);
+                delamane.Intents.Add(new Intent() { IntentName = intent.Name, IntentVersion =  res.Version});
                 await lex.PutIntentAsync(intent);
             }
             await lex.PutBotAsync(delamane);
