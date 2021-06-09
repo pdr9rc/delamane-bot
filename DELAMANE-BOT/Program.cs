@@ -13,6 +13,7 @@ namespace DELAMANE_BOT
         async static Task Main(string[] args)
         {
             PutBotRequest delamane = JsonConvert.DeserializeObject<PutBotRequest>(File.ReadAllText("delamane.json"));
+            Console.WriteLine(args[0]);
             var awsCredentials = new BasicAWSCredentials(args[0], args[1]);
             var lex = new AmazonLexModelBuildingServiceClient(awsCredentials, RegionEndpoint.EUCentral1);
             string[] files = Directory.GetFiles("Intents", "*.json", SearchOption.AllDirectories);
