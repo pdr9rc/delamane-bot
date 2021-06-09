@@ -36,10 +36,10 @@ namespace DELAMANE_BOT
                 {
                     intent.Checksum = (await lex.GetIntentAsync(new GetIntentRequest() { 
                         Name = intent.Name,
-                        Version = (await lex.GetIntentVersionsAsync(new GetIntentVersionsRequest() { Name = delamane.Name, MaxResults = 1 })).Intents[0].Version
+                        Version = (await lex.GetIntentVersionsAsync(new GetIntentVersionsRequest() { Name = intent.Name, MaxResults = 1 })).Intents[0].Version
                     })).Checksum;
                 }
-                catch { }
+                catch {}
                 intent.CreateVersion = true;
                 var res = await lex.PutIntentAsync(intent);
                 delamane.Intents.Add(new Intent() { IntentName = intent.Name, IntentVersion =  res.Version});
