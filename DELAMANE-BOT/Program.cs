@@ -27,12 +27,6 @@ namespace DELAMANE_BOT
                 delamane.Intents.Add(new Intent() { IntentName = intent.Name, IntentVersion =  res.Version});
             }
             var _res = await lex.PutBotAsync(delamane);
-            await lex.PutBotAliasAsync(new PutBotAliasRequest()
-            {
-                BotName = delamane.Name,
-                BotVersion = _res.Version,
-                Checksum = _res.Checksum
-            });
             //await lex.CreateBotVersionAsync(new CreateBotVersionRequest() { Name = delamane.Name });
             //foreach (Intent intent in delamane.Intents)
                 // lex.CreateIntentVersionAsync(new CreateIntentVersionRequest() { Name = intent.IntentName });
