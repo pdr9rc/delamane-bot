@@ -13,12 +13,18 @@ namespace DELAMANE_BOT
     {
         async static Task Main(string[] args)
         {
+
+
             PutBotRequest delamane = JsonConvert.DeserializeObject<PutBotRequest>(File.ReadAllText("delamane.json"));
             var lex = new AmazonLexModelBuildingServiceClient(args[0], args[1], RegionEndpoint.EUCentral1);
             string[] files = Directory.GetFiles($"{Directory.GetCurrentDirectory()}/Intents", "*.json", SearchOption.AllDirectories);
             Console.WriteLine($"Number of Intents : {files.Length}");
             foreach (string file in files)
-                delamane.Intents.Add(JsonConvert.DeserializeObject<Intent>(File.ReadAllText(file)));
+            {
+                var intent = JsonConvert.DeserializeObject<PutIntentRequest>(File.ReadAllText(file));
+                delamane.Intents.Add(new Intent() { IntentName = intent.Name });
+                await lex.PutIntentAsync(intent);
+            }
             await lex.PutBotAsync(delamane);
             await lex.CreateBotVersionAsync(new CreateBotVersionRequest() { Name = delamane.Name });
             foreach (Intent intent in delamane.Intents)
