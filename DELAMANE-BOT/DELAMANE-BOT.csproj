@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="delamane.json" />
+    <None Remove="Intents\my-name-is-delamane.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="delamane.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Intents\my-name-is-delamane.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AWSSDK.LexModelBuildingService" Version="3.7.1.23" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
