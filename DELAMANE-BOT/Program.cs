@@ -30,7 +30,7 @@ namespace DELAMANE_BOT
                 var intent = JsonConvert.DeserializeObject<PutIntentRequest>(File.ReadAllText(file));
                 try
                 {
-                    intent.Checksum = (await lex.GetIntentAsync(new GetIntentRequest() { Name = delamane.Name })).Checksum;
+                    intent.Checksum = (await lex.GetIntentAsync(new GetIntentRequest() { Name = intent.Name })).Checksum;
                 }
                 catch(Exception e) { Console.WriteLine(e.Message); }
                 intent.CreateVersion = true;
