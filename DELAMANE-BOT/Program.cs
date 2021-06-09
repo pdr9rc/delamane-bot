@@ -22,13 +22,20 @@ namespace DELAMANE_BOT
             foreach (string file in files)
             {
                 var intent = JsonConvert.DeserializeObject<PutIntentRequest>(File.ReadAllText(file));
+                intent.CreateVersion = true;
                 var res = await lex.PutIntentAsync(intent);
                 delamane.Intents.Add(new Intent() { IntentName = intent.Name, IntentVersion =  res.Version});
             }
-            await lex.PutBotAsync(delamane);
-            await lex.CreateBotVersionAsync(new CreateBotVersionRequest() { Name = delamane.Name });
-            foreach (Intent intent in delamane.Intents)
-                await lex.CreateIntentVersionAsync(new CreateIntentVersionRequest() { Name = intent.IntentName });
+            var _res = await lex.PutBotAsync(delamane);
+            await lex.PutBotAliasAsync(new PutBotAliasRequest()
+            {
+                BotName = delamane.Name,
+                BotVersion = _res.Version,
+                Checksum = _res.Checksum
+            });
+            //await lex.CreateBotVersionAsync(new CreateBotVersionRequest() { Name = delamane.Name });
+            //foreach (Intent intent in delamane.Intents)
+                // lex.CreateIntentVersionAsync(new CreateIntentVersionRequest() { Name = intent.IntentName });
         }
     }
 }
