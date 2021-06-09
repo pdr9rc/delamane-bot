@@ -1,0 +1,19 @@
+{
+  "name": "MyNameIsDelamane",
+  "fulfillmentActivity": {
+    "type": "ReturnIntent"
+  },
+  "sampleUtterances": [
+    "What is your name?"
+  ],
+  "slots": [],
+  "conclusionStatement": {
+    "messages": [
+      {
+        "groupNumber": 1,
+        "contentType": "PlainText",
+        "content": "My Name is Delamane!"
+      }
+    ]
+  }
+}

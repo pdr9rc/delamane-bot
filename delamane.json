@@ -1,0 +1,27 @@
+{
+    "name": "Delamane",
+    "voiceId": "Brian",
+    "childDirected": false,
+    "locale": "en-GB",
+    "idleSessionTTLInSeconds": 300,
+    "clarificationPrompt": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, can you please repeat that fuckface?"
+        }
+      ],
+      "maxAttempts": 5
+    },
+    "abortStatement": {
+      "messages": [
+        {
+          "contentType": "PlainText",
+          "content": "Sorry, I could not understand. Go fuck yourself."
+        }
+      ]
+    },
+    "detectSentiment": true,
+    "nluIntentConfidenceThreshold": 0.7,
+    "enableModelImprovements": true
+}
