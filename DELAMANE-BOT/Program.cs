@@ -20,9 +20,13 @@ namespace DELAMANE_BOT
             var lex = new AmazonLexModelBuildingServiceClient(args[0], args[1], RegionEndpoint.EUCentral1);
             try
             {
-                delamane.Checksum = (await lex.GetBotAsync(new GetBotRequest() { Name = delamane.Name })).Checksum;
+  
+                delamane.Checksum = (await lex.GetBotAsync(new GetBotRequest() { 
+                    Name = delamane.Name,
+                    VersionOrAlias = (await lex.GetBotVersionsAsync(new GetBotVersionsRequest() { Name = delamane.Name, MaxResults = 1})).Bots[0].Version
+                })).Checksum;
             }
-            catch (Exception e) { Console.WriteLine(e.Message); }
+            catch {}
             string[] files = Directory.GetFiles($"{Directory.GetCurrentDirectory()}/Intents", "*.json", SearchOption.AllDirectories);
             Console.WriteLine($"Number of Intents : {files.Length}");
             foreach (string file in files)
@@ -30,9 +34,12 @@ namespace DELAMANE_BOT
                 var intent = JsonConvert.DeserializeObject<PutIntentRequest>(File.ReadAllText(file));
                 try
                 {
-                    intent.Checksum = (await lex.GetIntentAsync(new GetIntentRequest() { Name = intent.Name })).Checksum;
+                    intent.Checksum = (await lex.GetIntentAsync(new GetIntentRequest() { 
+                        Name = intent.Name,
+                        Version = (await lex.GetIntentVersionsAsync(new GetIntentVersionsRequest() { Name = delamane.Name, MaxResults = 1 })).Bots[0].Version
+                    })).Checksum;
                 }
-                catch(Exception e) { Console.WriteLine(e.Message); }
+                catch { }
                 intent.CreateVersion = true;
                 var res = await lex.PutIntentAsync(intent);
                 delamane.Intents.Add(new Intent() { IntentName = intent.Name, IntentVersion =  res.Version});
