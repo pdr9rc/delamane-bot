@@ -37,7 +37,7 @@ namespace DELAMANE_BOT
                     intent.Checksum = (await lex.GetIntentAsync(new GetIntentRequest() { 
                         Name = intent.Name,
                         Version = (await lex.GetIntentVersionsAsync(new GetIntentVersionsRequest() { Name = intent.Name, MaxResults = 1 })).Intents[0].Version
-                    })).Checksum;
+                    })).Checksum; 
                 }
                 catch {}
                 intent.CreateVersion = true;
