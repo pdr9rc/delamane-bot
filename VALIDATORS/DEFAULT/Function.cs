@@ -27,7 +27,7 @@ namespace DEFAULT
             {
                 return FullfillIntent(new Dictionary<string, string>());
             }
-            return ElicitIntent(lexEvent.SessionAttributes);
+            return ElicitIntent(lexEvent.SessionAttributes ?? new Dictionary<string, string>());
         }
 
         //TODO: move this to common utils
@@ -35,7 +35,7 @@ namespace DEFAULT
         {
             return new LexResponse
             {
-                SessionAttributes = sessionAttr?? new Dictionary<string, string>(),
+                SessionAttributes = sessionAttr,
                 DialogAction = new LexResponse.LexDialogAction
                 {
                     Type = "ElicitIntent",
