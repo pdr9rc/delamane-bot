@@ -56,7 +56,7 @@ namespace DEFAULT
                 SessionAttributes = sessionAttr,
                 DialogAction = new LexResponse.LexDialogAction
                 {
-                    Type = "Delegate",
+                    Type = "Close",
                     Slots = new Dictionary<string, string>()
                 }
             };
