@@ -1,5 +1,4 @@
 {
-  {
     "name": "Default",
     "fulfillmentActivity": {
       "type": "ReturnIntent"
@@ -10,5 +9,4 @@
       "Acknowledge"
     ],
     "slots": []
-  }
 }
