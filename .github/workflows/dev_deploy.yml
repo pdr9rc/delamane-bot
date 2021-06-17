@@ -31,4 +31,4 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
     - name: deploy
-      run: sam deploy --template-file ./serverless.template --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND --stack-name delamane-bot --s3-bucket demalamane-bot-github-action-bucket --no-fail-on-empty-changeset --debug
+      run: sam deploy --template-file ./serverless.template --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND --stack-name delamane-bot --s3-bucket delamane-bot-github-action-bucket --no-fail-on-empty-changeset --debug
