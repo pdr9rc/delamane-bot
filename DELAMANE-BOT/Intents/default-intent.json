@@ -1,0 +1,14 @@
+{
+  {
+    "name": "Default",
+    "fulfillmentActivity": {
+      "type": "ReturnIntent"
+    },
+    "sampleUtterances": [
+      "One",
+      "Yes",
+      "Acknowledge"
+    ],
+    "slots": []
+  }
+}

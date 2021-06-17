@@ -1,0 +1,80 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "An AWS Serverless Application that uses the ASP.NET Core framework running in Amazon Lambda.",
+  "Parameters": {},
+  "Conditions": {},
+  "Resources": {
+    "delamaneBotRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "Description": "Role used by Delamane Lex Bot Lambdas for validation",
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "lambda.amazonaws.com",
+                                    "lex.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "ManagedPolicyArns": [
+                    {
+                        "Ref": "delamaneBotPolicy"
+                    }
+                ],
+                "RoleName": "delamaneBot"
+            }
+        },
+    "delamaneBotPolicy": {
+            "Type": "AWS::IAM::ManagedPolicy",
+            "Properties": {
+                "Description": "This policy is used by the Delamane Lex Bot Lambda validation execution role",
+                "ManagedPolicyName": "delamaneBot",
+                "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": [
+                                "logs:CreateLogStream",     
+                                "lambda:InvokeFunction",
+                                "logs:CreateLogGroup",
+                                "logs:PutLogEvents",
+                                "connect:StartOutboundVoiceContact",
+                                "connect:GetContactAttributes"
+                            ],
+                            "Resource": "*"
+                        }
+                    ]
+                }
+            }
+        },
+    "defaultValidator": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Runtime": "dotnetcore3.1",
+        "FunctionName" : "DEFAULT_VALIDATOR",
+        "Handler": "DEFAULT::DEFAULT.Function::FunctionHandler",
+        "CodeUri": "./staging/app/DEFAULT",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": { 
+                    "Fn::GetAtt" : [ "delamaneBotRole", "Arn" ]
+                },
+        "Policies": [
+          "AWSLambda_FullAccess"
+        ]
+      }
+    }
+  }
+}
