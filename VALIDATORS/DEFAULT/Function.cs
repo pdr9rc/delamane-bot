@@ -25,13 +25,13 @@ namespace DEFAULT
             var topicArn = lexEvent.SessionAttributes.Where(attr => attr.Key == "TopicArn");
             if (topicArn.Count() <= 0)
             {
-                return FullfillIntent(new Dictionary<string, string>(lexEvent.SessionAttributes));
+                return FullfillIntent(new Dictionary<string, string>());
             }
-            return ElicitIntent(new Dictionary<string, string>(lexEvent.SessionAttributes));
+            return ElicitIntent(lexEvent.SessionAttributes);
         }
 
         //TODO: move this to common utils
-        public LexResponse ElicitIntent(Dictionary<string, string> sessionAttr)
+        public LexResponse ElicitIntent(IDictionary<string, string> sessionAttr)
         {
             return new LexResponse
             {
@@ -49,7 +49,7 @@ namespace DEFAULT
         }
 
 
-        public LexResponse FullfillIntent(Dictionary<string, string> sessionAttr)
+        public LexResponse FullfillIntent(IDictionary<string, string> sessionAttr)
         {
             return new LexResponse
             {
@@ -57,7 +57,6 @@ namespace DEFAULT
                 DialogAction = new LexResponse.LexDialogAction
                 {
                     Type = "Close",
-                    Slots = new Dictionary<string, string>()
                 }
             };
         }
