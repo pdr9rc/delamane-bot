@@ -35,7 +35,7 @@ namespace DEFAULT
         {
             return new LexResponse
             {
-                SessionAttributes = sessionAttr,
+                SessionAttributes = sessionAttr?? new Dictionary<string, string>(),
                 DialogAction = new LexResponse.LexDialogAction
                 {
                     Type = "ElicitIntent",
