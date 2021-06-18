@@ -44,9 +44,11 @@ namespace DEFAULT
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
-            dialogAction.Type = "Delegate";
+            dialogAction.Type = "ElicitSlot";
             dialogAction.IntentName = "TestIntent";
             dialogAction.Slots = new Dictionary<string, string>();
+            dialogAction.Slots["type"] = "ec2";
+            dialogAction.SlotToElicit = "type";
             //dialogAction.Slots.Add("type", "ec2");
             res.DialogAction = dialogAction;
             return res;
