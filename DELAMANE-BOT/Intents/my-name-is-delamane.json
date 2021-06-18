@@ -1,10 +1,13 @@
 {
-  "name": "MyNameIsDelamane",
+  "name": "BlockInstance",
   "fulfillmentActivity": {
     "type": "ReturnIntent"
   },
   "sampleUtterances": [
-    "What is your name?"
+    "One",
+    "Yes",
+    "Apply remediation",
+    "Yes, apply remediation"
   ],
   "slots": [],
   "conclusionStatement": {
@@ -12,7 +15,7 @@
       {
         "groupNumber": 1,
         "contentType": "PlainText",
-        "content": "My Name is Delamane!"
+        "content": "OK. Performing actions in the network."
       }
     ]
   }
