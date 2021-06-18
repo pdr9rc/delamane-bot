@@ -47,7 +47,7 @@ namespace DEFAULT
             dialogAction.Message = new LexResponse.LexMessage();
             dialogAction.Type = "ElicitIntent";
             dialogAction.Message.ContentType = "PlainText";
-            dialogAction.Message.Content = "Some Prompt to trigger other intent";
+            dialogAction.Message.Content = "Press 4 or say Apply Remediation, to simulate remediation appliance";
             res.DialogAction = dialogAction;
             return res;
         }
