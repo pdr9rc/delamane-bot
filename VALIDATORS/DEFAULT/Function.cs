@@ -43,17 +43,13 @@ namespace DEFAULT
             Console.WriteLine(sessionAttr == null ? "is null" : "not null");
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
-            res.DialogAction = new LexResponse.LexDialogAction()
-            {
-                Type = "Close",
-                Message =
-                    {
-                        ContentType = "PlainText",
-                        Content = "Some Prompt to trigger other intent",
-                    },
-                FulfillmentState = "Fulfilled"
-            };
-            
+            var dialogAction = new LexResponse.LexDialogAction();
+            dialogAction.Message = new LexResponse.LexMessage();
+            dialogAction.Type = "Close";
+            dialogAction.Message.ContentType = "PlainText";
+            dialogAction.Message.Content = "Some Prompt to trigger other intent";
+            dialogAction.FulfillmentState = "Fulfilled";
+            res.DialogAction = dialogAction;
             return res;
         }
 
@@ -63,15 +59,13 @@ namespace DEFAULT
             Console.WriteLine("----------- FullfillIntent SESSSION ATTR ---------------");
             Console.WriteLine(sessionAttr);
             Console.WriteLine(sessionAttr == null ? "is null" : "not null");
-            var res = new LexResponse()
-            {
-                SessionAttributes = sessionAttr,
-                DialogAction = new LexResponse.LexDialogAction()
-                {
-                    Type = "Close",
-                    FulfillmentState = "Fulfilled"
-                }
-            };
+            var res = new LexResponse();
+            res.SessionAttributes = sessionAttr;
+            var dialogAction = new LexResponse.LexDialogAction();
+            dialogAction.Message = new LexResponse.LexMessage();
+            dialogAction.Type = "Close";
+            dialogAction.FulfillmentState = "Fulfilled";
+            res.DialogAction = dialogAction;
             return res;
         }
     }
