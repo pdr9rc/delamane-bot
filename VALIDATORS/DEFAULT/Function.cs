@@ -25,6 +25,8 @@ namespace DEFAULT
         {
             var sessionAttr = lexEvent.SessionAttributes ?? new Dictionary<string, string>();
             Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
+            Console.WriteLine(JsonConvert.SerializeObject(sessionAttr));
+            Console.WriteLine(JsonConvert.SerializeObject(lexEvent.RequestAttributes));
             return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
             //switch (lexEvent.InvocationSource)
             //{
