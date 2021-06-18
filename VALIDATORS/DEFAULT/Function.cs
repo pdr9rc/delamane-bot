@@ -51,6 +51,7 @@ namespace DEFAULT
             if (dialogAction.Slots["confirm"] != null)
                 if (dialogAction.Slots["confirm"] != "yes")
                 {
+                    Console.WriteLine("NO CONFIRM STATE");
                     dialogAction.Type = "ElicitIntent";
                     res.DialogAction = dialogAction;
                     dialogAction.Message.Content = sessionAttr["RemediationText"];
@@ -60,18 +61,20 @@ namespace DEFAULT
                 }
                 else
                 {
+                    Console.WriteLine("YES CONFIRM STATE");
                     return Close(sessionAttr);
                 }
             int code = Validator.Validate(input, sessionAttr);
             if (code == -1)
             {
-                Console.WriteLine("Reached the breach");
+                Console.WriteLine("INVALID STATE");
                 dialogAction.Type = "ElicitIntent";
                 res.DialogAction = dialogAction;
                 dialogAction.Slots["RemediationIndex"] = null;
                 dialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
                 return res;
             }
+            Console.WriteLine("CONFIRM QUESTION STATE");
             dialogAction.Type = "ElicitSlot";
             dialogAction.IntentName = "OptionIntent";
             if (dialogAction.Slots["RemediationIndex"] == null)
