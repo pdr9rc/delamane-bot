@@ -41,20 +41,19 @@ namespace DEFAULT
             Console.WriteLine("----------- ElicitIntent SESSSION ATTR ---------------");
             Console.WriteLine(sessionAttr);
             Console.WriteLine(sessionAttr == null ? "is null" : "not null");
-            var res = new LexResponse()
+            var res = new LexResponse();
+            res.SessionAttributes = sessionAttr;
+            res.DialogAction = new LexResponse.LexDialogAction()
             {
-                SessionAttributes = sessionAttr,
-                DialogAction = new LexResponse.LexDialogAction()
-                {
-                    Type = "Close",
-                    Message =
+                Type = "Close",
+                Message =
                     {
                         ContentType = "PlainText",
                         Content = "Some Prompt to trigger other intent",
                     },
-                    FulfillmentState = "Fulfilled"
-                }
+                FulfillmentState = "Fulfilled"
             };
+            
             return res;
         }
 
