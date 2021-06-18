@@ -23,6 +23,9 @@ namespace DEFAULT
         public LexResponse FunctionHandler(LexEvent lexEvent, ILambdaContext context)
         {
             var sessionAttr = lexEvent.SessionAttributes ?? new Dictionary<string, string>();
+            Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
+            Console.WriteLine(sessionAttr);
+            Console.WriteLine(sessionAttr == null ? "is null": "not null");
             var topicArn = lexEvent.SessionAttributes.Where(attr => attr.Key == "TopicArn");
             
             if (topicArn.Count() <= 0)
@@ -35,6 +38,9 @@ namespace DEFAULT
         //TODO: move this to common utils
         public LexResponse ElicitIntent(IDictionary<string, string> sessionAttr)
         {
+            Console.WriteLine("----------- ElicitIntent SESSSION ATTR ---------------");
+            Console.WriteLine(sessionAttr);
+            Console.WriteLine(sessionAttr == null ? "is null" : "not null");
             return new LexResponse
             {
                 SessionAttributes = sessionAttr,
@@ -53,6 +59,9 @@ namespace DEFAULT
 
         public LexResponse FullfillIntent(IDictionary<string, string> sessionAttr)
         {
+            Console.WriteLine("----------- FullfillIntent SESSSION ATTR ---------------");
+            Console.WriteLine(sessionAttr);
+            Console.WriteLine(sessionAttr == null ? "is null" : "not null");
             return new LexResponse
             {
                 SessionAttributes = sessionAttr,
