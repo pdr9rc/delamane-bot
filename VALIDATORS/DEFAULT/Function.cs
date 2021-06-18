@@ -23,11 +23,12 @@ namespace DEFAULT
         public LexResponse FunctionHandler(LexEvent lexEvent, ILambdaContext context)
         {
             var topicArn = lexEvent.SessionAttributes.Where(attr => attr.Key == "TopicArn");
+            var sessionAttr = lexEvent.SessionAttributes;
             if (topicArn.Count() <= 0)
             {
                 return FullfillIntent(new Dictionary<string, string>());
             }
-            return ElicitIntent(lexEvent.SessionAttributes ?? new Dictionary<string, string>());
+            return ElicitIntent(sessionAttr ?? new Dictionary<string, string>());
         }
 
         //TODO: move this to common utils
