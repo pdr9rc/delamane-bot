@@ -45,13 +45,14 @@ namespace DEFAULT
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
             dialogAction.Message = new LexResponse.LexMessage();
-            dialogAction.Type = "ElicitIntent";
+            dialogAction.Type = "ConfirmIntent";
+            dialogAction.IntentName = "IntentName";
             dialogAction.Message.ContentType = "PlainText";
+            dialogAction.Slots.Add("type", "ec2");
             dialogAction.Message.Content = "Press 4 or say Apply Remediation, to simulate remediation appliance";
             res.DialogAction = dialogAction;
             return res;
         }
-
 
         public LexResponse FulfillIntent(IDictionary<string, string> sessionAttr)
         {
