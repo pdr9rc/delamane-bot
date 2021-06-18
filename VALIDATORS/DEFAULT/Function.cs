@@ -25,15 +25,16 @@ namespace DEFAULT
         {
             var sessionAttr = lexEvent.SessionAttributes ?? new Dictionary<string, string>();
             Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
-            switch (lexEvent.InvocationSource)
-            {
-                case "FulfillmentCodeHook":
-                    return Close(sessionAttr);
-                case "DialogCodeHook":
-                    return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
-                default:
-                    throw new InvalidOperationException();
-            }
+            return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
+            //switch (lexEvent.InvocationSource)
+            //{
+            //    case "FulfillmentCodeHook":
+            //        return Close(sessionAttr);
+            //    case "DialogCodeHook":
+            //        return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
+            //    default:
+            //        throw new InvalidOperationException();
+            //}
         }
 
         //TODO: move this to common utils
