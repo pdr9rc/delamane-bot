@@ -55,7 +55,7 @@ namespace DEFAULT
                 if (dialogAction.Slots["confirm"] != "yes")
                 {
                     Console.WriteLine("NO CONFIRM STATE");
-                    dialogAction.Type = "ElicitIntent";
+                    dialogAction.Type = "Delegate";
                     res.DialogAction = dialogAction;
                     dialogAction.Message.Content = sessionAttr["RemediationText"];
                     dialogAction.Slots["confirm"] = null;
