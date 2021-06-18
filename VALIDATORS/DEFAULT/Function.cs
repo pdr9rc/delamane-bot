@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using Amazon.Lambda.Core;
 using Amazon.Lambda.LexEvents;
+using Newtonsoft.Json;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -24,39 +25,59 @@ namespace DEFAULT
         {
             var sessionAttr = lexEvent.SessionAttributes ?? new Dictionary<string, string>();
             Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
-            Console.WriteLine(sessionAttr);
-            Console.WriteLine(sessionAttr == null ? "is null": "not null");
-            var topicArn = lexEvent.SessionAttributes.Where(attr => attr.Key == "TopicArn");
-            
-            if (topicArn.Count() <= 0)
+            switch (lexEvent.InvocationSource)
             {
-                return FulfillIntent(sessionAttr);
+                case "FulfillmentCodeHook":
+                    return Close(sessionAttr);
+                case "DialogCodeHook":
+                    return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
             }
-            return ElicitIntent(sessionAttr);
         }
 
         //TODO: move this to common utils
-        public LexResponse ElicitIntent(IDictionary<string, string> sessionAttr)
+        public LexResponse Validate(IDictionary<string, string> sessionAttr, string input, IDictionary<string, string> slots)
         {
             Console.WriteLine("----------- ElicitIntent SESSSION ATTR ---------------");
-            Console.WriteLine(sessionAttr);
-            Console.WriteLine(sessionAttr == null ? "is null" : "not null");
+
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
+            dialogAction.Slots = (slots != null)? slots : new Dictionary<string, string>();
+            res.DialogAction.Message = new LexResponse.LexMessage();
+            //TODO, does this work?
+            res.DialogAction.Message.ContentType = "PlainText";
+            if (dialogAction.Slots["confirm"] != null)
+                if (dialogAction.Slots["confirm"] != "yes")
+                {
+                    dialogAction.Type = "ElicitIntent";
+                    res.DialogAction = dialogAction;
+                    res.DialogAction.Message.Content = sessionAttr["RemediationText"];
+                    dialogAction.Slots["confirm"] = null;
+                    return res;
+                }
+                else
+                {
+                    return Close(sessionAttr);
+                }
+            int code = Validator.Validate(input, sessionAttr);
+            if (code == -1)
+            {
+                dialogAction.Type = "ElicitIntent";
+                res.DialogAction = dialogAction;
+                res.DialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
+                return res;
+            }
             dialogAction.Type = "ElicitSlot";
-            dialogAction.IntentName = "TestIntent";
-            dialogAction.Slots = new Dictionary<string, string>();
-            dialogAction.Slots["type"] = "essi2";
-
-
-            //dialogAction.SlotToElicit = "type";
-            //dialogAction.Slots.Add("type", "ec2");
+            dialogAction.IntentName = "OptionIntent";
+            dialogAction.Slots["RemediationIndex"] = code.ToString();
+            dialogAction.SlotToElicit = "confirm";
+            List<string> rems = JsonConvert.DeserializeObject<List<string>>(sessionAttr["RemediationOptions"]);
+            dialogAction.Message.Content = $"You have decided to {rems[code - 1]}.";
             res.DialogAction = dialogAction;
             return res;
         }
 
-        public LexResponse FulfillIntent(IDictionary<string, string> sessionAttr)
+        public LexResponse Close(IDictionary<string, string> sessionAttr)
         {
             Console.WriteLine("----------- FullfillIntent SESSSION ATTR ---------------");
             Console.WriteLine(sessionAttr);
