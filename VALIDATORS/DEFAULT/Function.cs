@@ -41,7 +41,7 @@ namespace DEFAULT
         public LexResponse Validate(IDictionary<string, string> sessionAttr, string input, IDictionary<string, string> slots)
         {
             Console.WriteLine("----------- Validate SESSSION ATTR ---------------");
-
+            Console.WriteLine(JsonConvert.SerializeObject(sessionAttr));
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
