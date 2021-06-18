@@ -69,10 +69,11 @@ namespace DEFAULT
                 dialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
                 return res;
             }
-            dialogAction.Type = "Delegate";
+            Console.WriteLine("Reached the breach");
+            dialogAction.Type = "ElicitSlot";
             dialogAction.IntentName = "OptionIntent";
             dialogAction.Slots["RemediationIndex"] = code.ToString();
-            //dialogAction.SlotToElicit = "confirm";
+            dialogAction.SlotToElicit = "confirm";
             List<string> rems = JsonConvert.DeserializeObject<List<string>>(sessionAttr["RemediationOptions"]);
             dialogAction.Message.Content = $"You have decided to {rems[code - 1]}.";
             res.DialogAction = dialogAction;
