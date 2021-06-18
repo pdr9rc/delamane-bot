@@ -47,10 +47,8 @@ namespace DEFAULT
             dialogAction.Type = "ElicitSlot";
             dialogAction.IntentName = "TestIntent";
             dialogAction.Slots = new Dictionary<string, string>();
-            dialogAction.Slots["type"] = "essi2";
-
-
-            //dialogAction.SlotToElicit = "type";
+            dialogAction.Slots["type"] = "issi2";
+            dialogAction.SlotToElicit = "type";
             //dialogAction.Slots.Add("type", "ec2");
             res.DialogAction = dialogAction;
             return res;
