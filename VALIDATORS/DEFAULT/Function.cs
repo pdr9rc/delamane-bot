@@ -31,6 +31,8 @@ namespace DEFAULT
                     return Close(sessionAttr);
                 case "DialogCodeHook":
                     return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
+                default:
+                    throw new InvalidOperationException();
             }
         }
 
