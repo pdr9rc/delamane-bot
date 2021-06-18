@@ -30,12 +30,33 @@ namespace DEFAULT
             
             if (topicArn.Count() <= 0)
             {
-                return FulfillIntent(sessionAttr);
+                return new LexResponse()
+                {
+                    SessionAttributes = sessionAttr,
+                    DialogAction = new LexResponse.LexDialogAction()
+                    {
+                        Type = "Close",
+                        FulfillmentState = "Fulfilled"
+                    }
+                };
             }
-            return ElicitIntent(sessionAttr);
+            return new LexResponse()
+            {
+                SessionAttributes = sessionAttr,
+                DialogAction = new LexResponse.LexDialogAction()
+                {
+                    Type = "Close",
+                    Message =
+                    {
+                        ContentType = "PlainText",
+                        Content = "Some Prompt to trigger other intent",
+                    },
+                    FulfillmentState = "Fulfilled"
+                }
+            };
         }
 
-        //TODO: move this to common utils
+        /*//TODO: move this to common utils
         public LexResponse ElicitIntent(IDictionary<string, string> sessionAttr)
         {
             Console.WriteLine("----------- ElicitIntent SESSSION ATTR ---------------");
@@ -72,6 +93,6 @@ namespace DEFAULT
                     FulfillmentState = "Fulfilled"
                 }
             };
-        }
+        }*/
     }
 }
