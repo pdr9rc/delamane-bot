@@ -39,7 +39,7 @@ namespace DEFAULT
         //TODO: move this to common utils
         public LexResponse Validate(IDictionary<string, string> sessionAttr, string input, IDictionary<string, string> slots)
         {
-            Console.WriteLine("----------- ElicitIntent SESSSION ATTR ---------------");
+            Console.WriteLine("----------- Validate SESSSION ATTR ---------------");
 
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
@@ -69,10 +69,10 @@ namespace DEFAULT
                 dialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
                 return res;
             }
-            dialogAction.Type = "ElicitSlot";
+            dialogAction.Type = "Delegate";
             dialogAction.IntentName = "OptionIntent";
             dialogAction.Slots["RemediationIndex"] = code.ToString();
-            dialogAction.SlotToElicit = "confirm";
+            //dialogAction.SlotToElicit = "confirm";
             List<string> rems = JsonConvert.DeserializeObject<List<string>>(sessionAttr["RemediationOptions"]);
             dialogAction.Message.Content = $"You have decided to {rems[code - 1]}.";
             res.DialogAction = dialogAction;
@@ -81,7 +81,7 @@ namespace DEFAULT
 
         public LexResponse Close(IDictionary<string, string> sessionAttr)
         {
-            Console.WriteLine("----------- FullfillIntent SESSSION ATTR ---------------");
+            Console.WriteLine("----------- Close SESSSION ATTR ---------------");
             Console.WriteLine(sessionAttr);
             Console.WriteLine(sessionAttr == null ? "is null" : "not null");
             var res = new LexResponse();
