@@ -30,39 +30,18 @@ namespace DEFAULT
             
             if (topicArn.Count() <= 0)
             {
-                return new LexResponse()
-                {
-                    SessionAttributes = sessionAttr,
-                    DialogAction = new LexResponse.LexDialogAction()
-                    {
-                        Type = "Close",
-                        FulfillmentState = "Fulfilled"
-                    }
-                };
+                return FulfillIntent(sessionAttr);
             }
-            return new LexResponse()
-            {
-                SessionAttributes = sessionAttr,
-                DialogAction = new LexResponse.LexDialogAction()
-                {
-                    Type = "Close",
-                    Message =
-                    {
-                        ContentType = "PlainText",
-                        Content = "Some Prompt to trigger other intent",
-                    },
-                    FulfillmentState = "Fulfilled"
-                }
-            };
+            return ElicitIntent(sessionAttr);
         }
 
-        /*//TODO: move this to common utils
+        //TODO: move this to common utils
         public LexResponse ElicitIntent(IDictionary<string, string> sessionAttr)
         {
             Console.WriteLine("----------- ElicitIntent SESSSION ATTR ---------------");
             Console.WriteLine(sessionAttr);
             Console.WriteLine(sessionAttr == null ? "is null" : "not null");
-            return new LexResponse()
+            var res = new LexResponse()
             {
                 SessionAttributes = sessionAttr,
                 DialogAction = new LexResponse.LexDialogAction()
@@ -76,6 +55,7 @@ namespace DEFAULT
                     FulfillmentState = "Fulfilled"
                 }
             };
+            return res;
         }
 
 
@@ -84,7 +64,7 @@ namespace DEFAULT
             Console.WriteLine("----------- FullfillIntent SESSSION ATTR ---------------");
             Console.WriteLine(sessionAttr);
             Console.WriteLine(sessionAttr == null ? "is null" : "not null");
-            return new LexResponse()
+            var res = new LexResponse()
             {
                 SessionAttributes = sessionAttr,
                 DialogAction = new LexResponse.LexDialogAction()
@@ -93,6 +73,7 @@ namespace DEFAULT
                     FulfillmentState = "Fulfilled"
                 }
             };
-        }*/
+            return res;
+        }
     }
 }
