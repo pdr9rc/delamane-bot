@@ -45,7 +45,7 @@ namespace DEFAULT
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
             dialogAction.Message = new LexResponse.LexMessage();
-            dialogAction.Type = "ConfirmIntent";
+            dialogAction.Type = "ElicitIntent";
             dialogAction.IntentName = "TestIntent";
             dialogAction.Message.ContentType = "PlainText";
             dialogAction.Slots = new Dictionary<string, string>();
