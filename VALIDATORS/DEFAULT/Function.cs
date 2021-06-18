@@ -45,15 +45,15 @@ namespace DEFAULT
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
             dialogAction.Slots = (slots != null)? slots : new Dictionary<string, string>();
-            res.DialogAction.Message = new LexResponse.LexMessage();
+            dialogAction.Message = new LexResponse.LexMessage();
             //TODO, does this work?
-            res.DialogAction.Message.ContentType = "PlainText";
+            dialogAction.Message.ContentType = "PlainText";
             if (dialogAction.Slots["confirm"] != null)
                 if (dialogAction.Slots["confirm"] != "yes")
                 {
                     dialogAction.Type = "ElicitIntent";
                     res.DialogAction = dialogAction;
-                    res.DialogAction.Message.Content = sessionAttr["RemediationText"];
+                    dialogAction.Message.Content = sessionAttr["RemediationText"];
                     dialogAction.Slots["confirm"] = null;
                     return res;
                 }
@@ -66,7 +66,7 @@ namespace DEFAULT
             {
                 dialogAction.Type = "ElicitIntent";
                 res.DialogAction = dialogAction;
-                res.DialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
+                dialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
                 return res;
             }
             dialogAction.Type = "ElicitSlot";
