@@ -48,6 +48,7 @@ namespace DEFAULT
             dialogAction.Type = "ConfirmIntent";
             dialogAction.IntentName = "TestIntent";
             dialogAction.Message.ContentType = "PlainText";
+            dialogAction.Slots = new Dictionary<string, string>();
             dialogAction.Slots.Add("type", "ec2");
             res.DialogAction = dialogAction;
             return res;
