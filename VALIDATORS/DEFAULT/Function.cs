@@ -56,10 +56,10 @@ namespace DEFAULT
                 {
                     Console.WriteLine("NO CONFIRM STATE");
                     dialogAction.Type = "Delegate";
-                    res.DialogAction = dialogAction;
                     dialogAction.Message.Content = sessionAttr["RemediationText"];
                     dialogAction.Slots["confirm"] = null;
                     dialogAction.Slots["RemediationIndex"] = null;
+                    res.DialogAction = dialogAction;
                     return res;
                 }
                 else
@@ -72,9 +72,9 @@ namespace DEFAULT
             {
                 Console.WriteLine("INVALID STATE");
                 dialogAction.Type = "ElicitIntent";
-                res.DialogAction = dialogAction;
                 dialogAction.Slots["RemediationIndex"] = null;
                 dialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
+                res.DialogAction = dialogAction;
                 return res;
             }
             Console.WriteLine("CONFIRM QUESTION STATE");
