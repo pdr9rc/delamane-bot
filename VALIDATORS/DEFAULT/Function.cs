@@ -55,6 +55,7 @@ namespace DEFAULT
                     res.DialogAction = dialogAction;
                     dialogAction.Message.Content = sessionAttr["RemediationText"];
                     dialogAction.Slots["confirm"] = null;
+                    dialogAction.Slots["RemediationIndex"] = null;
                     return res;
                 }
                 else
@@ -64,15 +65,17 @@ namespace DEFAULT
             int code = Validator.Validate(input, sessionAttr);
             if (code == -1)
             {
+                Console.WriteLine("Reached the breach");
                 dialogAction.Type = "ElicitIntent";
                 res.DialogAction = dialogAction;
+                dialogAction.Slots["RemediationIndex"] = null;
                 dialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
                 return res;
             }
-            Console.WriteLine("Reached the breach");
             dialogAction.Type = "ElicitSlot";
             dialogAction.IntentName = "OptionIntent";
-            dialogAction.Slots["RemediationIndex"] = code.ToString();
+            if (dialogAction.Slots["RemediationIndex"] == null)
+                dialogAction.Slots["RemediationIndex"] = code.ToString();
             dialogAction.SlotToElicit = "confirm";
             List<string> rems = JsonConvert.DeserializeObject<List<string>>(sessionAttr["RemediationOptions"]);
             dialogAction.Message.Content = $"You have decided to {rems[code - 1]}.";
