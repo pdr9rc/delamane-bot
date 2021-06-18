@@ -45,10 +45,9 @@ namespace DEFAULT
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
             dialogAction.Message = new LexResponse.LexMessage();
-            dialogAction.Type = "Close";
+            dialogAction.Type = "ElicitIntent";
             dialogAction.Message.ContentType = "PlainText";
             dialogAction.Message.Content = "Some Prompt to trigger other intent";
-            dialogAction.FulfillmentState = "Fulfilled";
             res.DialogAction = dialogAction;
             return res;
         }
