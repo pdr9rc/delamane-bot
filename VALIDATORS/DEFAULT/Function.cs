@@ -41,10 +41,10 @@ namespace DEFAULT
             Console.WriteLine("----------- ElicitIntent SESSSION ATTR ---------------");
             Console.WriteLine(sessionAttr);
             Console.WriteLine(sessionAttr == null ? "is null" : "not null");
-            return new LexResponse
+            return new LexResponse()
             {
                 SessionAttributes = sessionAttr,
-                DialogAction = new LexResponse.LexDialogAction
+                DialogAction = new LexResponse.LexDialogAction()
                 {
                     Type = "Close",
                     Message =
@@ -63,10 +63,10 @@ namespace DEFAULT
             Console.WriteLine("----------- FullfillIntent SESSSION ATTR ---------------");
             Console.WriteLine(sessionAttr);
             Console.WriteLine(sessionAttr == null ? "is null" : "not null");
-            return new LexResponse
+            return new LexResponse()
             {
                 SessionAttributes = sessionAttr,
-                DialogAction = new LexResponse.LexDialogAction
+                DialogAction = new LexResponse.LexDialogAction()
                 {
                     Type = "Close",
                     FulfillmentState = "Fulfilled"
