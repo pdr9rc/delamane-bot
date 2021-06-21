@@ -13,7 +13,7 @@ namespace DEFAULT
                 int size = int.Parse(sessionAttr["RemediationLength"]);
                 if (size == 1)
                 {
-                    if (input == "yes")
+                    if (input == "yes" || input == "1")
                         return 1;
                     else if (input == "no")
                         return 0;
