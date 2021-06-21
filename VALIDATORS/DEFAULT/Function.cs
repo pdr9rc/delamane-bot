@@ -14,7 +14,7 @@ namespace DEFAULT
 {
     public class Function
     {
-
+        private readonly string[] CONFIRM_STATE_VALUES = { "yes", "1" };
         /// <summary>
         /// A simple function that takes a string and does a ToUpper
         /// </summary>
@@ -54,7 +54,7 @@ namespace DEFAULT
             //TODO, does this work?
             dialogAction.Message.ContentType = "PlainText";
             if (dialogAction.Slots["confirm"] != null)
-                if (dialogAction.Slots["confirm"] != "yes")
+                if (!CONFIRM_STATE_VALUES.Contains(dialogAction.Slots["confirm"]))//dialogAction.Slots["confirm"] != "yes")
                 {
                     Console.WriteLine("NO CONFIRM STATE");
                     dialogAction.Type = "Delegate";
