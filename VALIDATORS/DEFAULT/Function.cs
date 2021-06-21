@@ -26,7 +26,7 @@ namespace DEFAULT
             var sessionAttr = lexEvent.SessionAttributes ?? new Dictionary<string, string>();
             Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
             Console.WriteLine(JsonConvert.SerializeObject(sessionAttr));
-            Console.WriteLine(JsonConvert.SerializeObject(lexEvent.RequestAttributes));
+            Console.WriteLine(JsonConvert.SerializeObject(lexEvent.InvocationSource));
             
             switch (lexEvent.InvocationSource)
             {
@@ -35,7 +35,6 @@ namespace DEFAULT
                case "DialogCodeHook":
                     return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
                default:
-                    Console.WriteLine("DEFAULT HOOK ");
                     Console.WriteLine("DEFAULT HOOK ");
                     throw new InvalidOperationException();
             }
