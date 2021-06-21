@@ -27,7 +27,7 @@ namespace DEFAULT
             var sessionAttr = lexEvent.SessionAttributes ?? new Dictionary<string, string>();
             Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
             Console.WriteLine(JsonConvert.SerializeObject(sessionAttr));
-            Console.WriteLine(JsonConvert.SerializeObject(lexEvent.InvocationSource));
+            Console.WriteLine(JsonConvert.SerializeObject(lexEvent));
             
             switch (lexEvent.InvocationSource)
             {
@@ -45,15 +45,15 @@ namespace DEFAULT
         public LexResponse Validate(IDictionary<string, string> sessionAttr, string input, IDictionary<string, string> slots)
         {
             Console.WriteLine("----------- Validate Handler ---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(slots));
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
             dialogAction.Slots = (slots != null)? slots : new Dictionary<string, string>();
             dialogAction.Message = new LexResponse.LexMessage();
-            //TODO, does this work?
             dialogAction.Message.ContentType = "PlainText";
+
             if (dialogAction.Slots["confirm"] != null)
+            {
                 if (!CONFIRM_STATE_VALUES.Contains(dialogAction.Slots["confirm"]))//dialogAction.Slots["confirm"] != "yes")
                 {
                     Console.WriteLine("NO CONFIRM STATE");
@@ -67,12 +67,15 @@ namespace DEFAULT
                 else
                 {
                     Console.WriteLine("YES CONFIRM STATE");
-                    Console.WriteLine(JsonConvert.SerializeObject(dialogAction.Slots));
                     dialogAction.Type = "Delegate";
                     res.DialogAction = dialogAction;
+                    Console.WriteLine(JsonConvert.SerializeObject(res));
                     return res;//return Close(sessionAttr);
                 }
+            }
+
             int code = Validator.Validate(input, sessionAttr);
+
             if (code == -1)
             {
                 Console.WriteLine("INVALID STATE");
@@ -82,6 +85,7 @@ namespace DEFAULT
                 res.DialogAction = dialogAction;
                 return res;
             }
+
             Console.WriteLine("CONFIRM QUESTION STATE");
             dialogAction.Type = "ElicitSlot";
             dialogAction.IntentName = "OptionIntent";
