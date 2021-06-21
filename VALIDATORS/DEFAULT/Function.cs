@@ -46,7 +46,7 @@ namespace DEFAULT
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
-            dialogAction.Slots = (slots != null)? slots : new Dictionary<string, string>();
+            //dialogAction.Slots = (slots != null)? slots : new Dictionary<string, string>();
             
 
             if (dialogAction.Slots["confirm"] != null)
@@ -58,6 +58,7 @@ namespace DEFAULT
                     dialogAction.Message = new LexResponse.LexMessage();
                     dialogAction.Message.ContentType = "PlainText";
                     dialogAction.Message.Content = sessionAttr["RemediationText"];
+                    dialogAction.Slots = (slots != null) ? slots : new Dictionary<string, string>();
                     dialogAction.Slots["confirm"] = null;
                     dialogAction.Slots["RemediationIndex"] = null;
                     res.DialogAction = dialogAction;
@@ -67,9 +68,10 @@ namespace DEFAULT
                 {
                     Console.WriteLine("YES CONFIRM STATE");
                     dialogAction.Type = "Delegate";
+                    dialogAction.Slots = (slots != null) ? slots : new Dictionary<string, string>();
                     res.DialogAction = dialogAction;
                     Console.WriteLine(JsonConvert.SerializeObject(res));
-                    return res;//return Close(sessionAttr);
+                    return res;
                 }
             }
 
@@ -79,7 +81,6 @@ namespace DEFAULT
             {
                 Console.WriteLine("INVALID STATE");
                 dialogAction.Type = "ElicitIntent";
-                dialogAction.Slots["RemediationIndex"] = null;
                 dialogAction.Message = new LexResponse.LexMessage();
                 dialogAction.Message.ContentType = "PlainText";
                 dialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
@@ -91,7 +92,7 @@ namespace DEFAULT
 
             dialogAction.Type = "ElicitSlot";
             dialogAction.IntentName = "OptionIntent";
-
+            dialogAction.Slots = (slots != null) ? slots : new Dictionary<string, string>();
             if (dialogAction.Slots["RemediationIndex"] == null)
                 dialogAction.Slots["RemediationIndex"] = code.ToString();
 
