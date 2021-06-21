@@ -27,16 +27,18 @@ namespace DEFAULT
             Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
             Console.WriteLine(JsonConvert.SerializeObject(sessionAttr));
             Console.WriteLine(JsonConvert.SerializeObject(lexEvent.RequestAttributes));
-            return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
-            //switch (lexEvent.InvocationSource)
-            //{
-            //    case "FulfillmentCodeHook":
-            //        return Close(sessionAttr);
-            //    case "DialogCodeHook":
-            //        return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
-            //    default:
-            //        throw new InvalidOperationException();
-            //}
+            
+            switch (lexEvent.InvocationSource)
+            {
+                case "FulfillmentCodeHook":
+                    return Close(sessionAttr);
+               case "DialogCodeHook":
+                    return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
+               default:
+                    Console.WriteLine("DEFAULT HOOK ");
+                    Console.WriteLine("DEFAULT HOOK ");
+                    throw new InvalidOperationException();
+            }
         }
 
         //TODO: move this to common utils
