@@ -58,9 +58,6 @@ namespace DEFAULT
                     dialogAction.Message = new LexResponse.LexMessage();
                     dialogAction.Message.ContentType = "PlainText";
                     dialogAction.Message.Content = sessionAttr["RemediationText"];
-                    dialogAction.Slots = (slots != null) ? slots : new Dictionary<string, string>();
-                    dialogAction.Slots["confirm"] = null;
-                    dialogAction.Slots["RemediationIndex"] = null;
                     res.DialogAction = dialogAction;
                     return res;
                 }
