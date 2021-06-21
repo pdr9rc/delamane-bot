@@ -49,7 +49,7 @@ namespace DEFAULT
             //dialogAction.Slots = (slots != null)? slots : new Dictionary<string, string>();
             
 
-            if (dialogAction.Slots["confirm"] != null)
+            if (slots["confirm"] != null)
             {
                 if (!CONFIRM_STATE_VALUES.Contains(dialogAction.Slots["confirm"]))//dialogAction.Slots["confirm"] != "yes")
                 {
