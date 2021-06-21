@@ -26,8 +26,6 @@ namespace DEFAULT
             
             var sessionAttr = lexEvent.SessionAttributes ?? new Dictionary<string, string>();
             Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(sessionAttr));
-            Console.WriteLine(JsonConvert.SerializeObject(lexEvent));
             
             switch (lexEvent.InvocationSource)
             {
@@ -90,10 +88,13 @@ namespace DEFAULT
             }
 
             Console.WriteLine("CONFIRM QUESTION STATE");
+
             dialogAction.Type = "ElicitSlot";
             dialogAction.IntentName = "OptionIntent";
+
             if (dialogAction.Slots["RemediationIndex"] == null)
                 dialogAction.Slots["RemediationIndex"] = code.ToString();
+
             dialogAction.Slots["confirm"] = null;
             dialogAction.SlotToElicit = "confirm";
             List<string> rems = JsonConvert.DeserializeObject<List<string>>(sessionAttr["RemediationOptions"]);
@@ -107,8 +108,6 @@ namespace DEFAULT
         public LexResponse Close(IDictionary<string, string> sessionAttr)
         {
             Console.WriteLine("----------- Close SESSSION ATTR ---------------");
-            Console.WriteLine(sessionAttr);
-            Console.WriteLine(sessionAttr == null ? "is null" : "not null");
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
