@@ -49,8 +49,7 @@ namespace DEFAULT
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
             dialogAction.Slots = (slots != null)? slots : new Dictionary<string, string>();
-            dialogAction.Message = new LexResponse.LexMessage();
-            dialogAction.Message.ContentType = "PlainText";
+            
 
             if (dialogAction.Slots["confirm"] != null)
             {
@@ -58,6 +57,8 @@ namespace DEFAULT
                 {
                     Console.WriteLine("NO CONFIRM STATE");
                     dialogAction.Type = "ElicitIntent";
+                    dialogAction.Message = new LexResponse.LexMessage();
+                    dialogAction.Message.ContentType = "PlainText";
                     dialogAction.Message.Content = sessionAttr["RemediationText"];
                     dialogAction.Slots["confirm"] = null;
                     dialogAction.Slots["RemediationIndex"] = null;
@@ -81,6 +82,8 @@ namespace DEFAULT
                 Console.WriteLine("INVALID STATE");
                 dialogAction.Type = "ElicitIntent";
                 dialogAction.Slots["RemediationIndex"] = null;
+                dialogAction.Message = new LexResponse.LexMessage();
+                dialogAction.Message.ContentType = "PlainText";
                 dialogAction.Message.Content = "Invalid option selection, go fuck yourself and select something valid!";
                 res.DialogAction = dialogAction;
                 return res;
@@ -94,6 +97,8 @@ namespace DEFAULT
             dialogAction.Slots["confirm"] = null;
             dialogAction.SlotToElicit = "confirm";
             List<string> rems = JsonConvert.DeserializeObject<List<string>>(sessionAttr["RemediationOptions"]);
+            dialogAction.Message = new LexResponse.LexMessage();
+            dialogAction.Message.ContentType = "PlainText";
             dialogAction.Message.Content = $"You have decided to {rems[code - 1]}. Say yes, or press 1 to confirm. Say no or press 2 to retry";
             res.DialogAction = dialogAction;
             return res;
