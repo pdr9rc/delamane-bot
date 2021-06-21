@@ -45,7 +45,7 @@ namespace DEFAULT
         public LexResponse Validate(IDictionary<string, string> sessionAttr, string input, IDictionary<string, string> slots)
         {
             Console.WriteLine("----------- Validate Handler ---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(input));
+            Console.WriteLine(JsonConvert.SerializeObject(slots));
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
@@ -57,10 +57,11 @@ namespace DEFAULT
                 if (!CONFIRM_STATE_VALUES.Contains(dialogAction.Slots["confirm"]))//dialogAction.Slots["confirm"] != "yes")
                 {
                     Console.WriteLine("NO CONFIRM STATE");
-                    dialogAction.Type = "Delegate";
+                    dialogAction.Type = "ElicitIntent";
                     dialogAction.Message.Content = sessionAttr["RemediationText"];
                     dialogAction.Slots["confirm"] = null;
                     dialogAction.Slots["RemediationIndex"] = null;
+                    dialogAction.IntentName = "OptionIntent";
                     res.DialogAction = dialogAction;
                     return res;
                 }
@@ -68,8 +69,7 @@ namespace DEFAULT
                 {
                     Console.WriteLine("YES CONFIRM STATE");
                     dialogAction.Type = "Delegate";
-                    dialogAction.Slots["confirm"] = slots["confirm"];
-                    dialogAction.Slots["RemediationIndex"] = slots["RemediationIndex"];
+                    dialogAction.IntentName= "OptionIntent";
                     res.DialogAction = dialogAction;
                     return res;//return Close(sessionAttr);
                 }
