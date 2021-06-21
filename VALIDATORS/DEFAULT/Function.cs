@@ -23,10 +23,11 @@ namespace DEFAULT
         /// <returns></returns>
         public LexResponse FunctionHandler(LexEvent lexEvent, ILambdaContext context)
         {
+            
             var sessionAttr = lexEvent.SessionAttributes ?? new Dictionary<string, string>();
             Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
             Console.WriteLine(JsonConvert.SerializeObject(sessionAttr));
-            Console.WriteLine(JsonConvert.SerializeObject(lexEvent.InvocationSource));
+            Console.WriteLine(JsonConvert.SerializeObject(lexEvent.SlotDetails));
             
             switch (lexEvent.InvocationSource)
             {
