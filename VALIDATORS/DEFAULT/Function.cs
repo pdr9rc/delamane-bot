@@ -112,7 +112,6 @@ namespace DEFAULT
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
-            dialogAction.Message = new LexResponse.LexMessage();
             dialogAction.Type = "Close";
             dialogAction.FulfillmentState = "Fulfilled";
             res.DialogAction = dialogAction;
