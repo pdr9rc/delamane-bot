@@ -43,8 +43,8 @@ namespace DEFAULT
         //TODO: move this to common utils
         public LexResponse Validate(IDictionary<string, string> sessionAttr, string input, IDictionary<string, string> slots)
         {
-            Console.WriteLine("----------- Validate Slots ---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(slots));
+            Console.WriteLine("----------- Validate Handler ---------------");
+            Console.WriteLine(JsonConvert.SerializeObject(input));
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
