@@ -111,10 +111,10 @@ namespace DEFAULT
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
-            dialogAction.Type = "Delegate";
-            dialogAction.Slots = (slots != null) ? slots : new Dictionary<string, string>();
-            //dialogAction.FulfillmentState = "Fulfilled";
+            dialogAction.Type = "Close";
+            dialogAction.FulfillmentState = "Fulfilled";
             res.DialogAction = dialogAction;
+            Console.WriteLine(JsonConvert.SerializeObject(res));
             return res;
         }
     }
