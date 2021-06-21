@@ -51,7 +51,7 @@ namespace DEFAULT
 
             if (slots["confirm"] != null)
             {
-                if (!CONFIRM_STATE_VALUES.Contains(dialogAction.Slots["confirm"]))//dialogAction.Slots["confirm"] != "yes")
+                if (!CONFIRM_STATE_VALUES.Contains(slots["confirm"]))//dialogAction.Slots["confirm"] != "yes")
                 {
                     Console.WriteLine("NO CONFIRM STATE");
                     dialogAction.Type = "ElicitIntent";
