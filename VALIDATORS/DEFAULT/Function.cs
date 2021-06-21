@@ -86,7 +86,7 @@ namespace DEFAULT
                 dialogAction.Slots["RemediationIndex"] = code.ToString();
             dialogAction.SlotToElicit = "confirm";
             List<string> rems = JsonConvert.DeserializeObject<List<string>>(sessionAttr["RemediationOptions"]);
-            dialogAction.Message.Content = $"You have decided to {rems[code - 1]}.";
+            dialogAction.Message.Content = $"You have decided to {rems[code - 1]}. Say yes, or press 1 to confirm. Say no or press 2 to retry";
             res.DialogAction = dialogAction;
             return res;
         }
