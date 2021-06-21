@@ -67,6 +67,7 @@ namespace DEFAULT
                 else
                 {
                     Console.WriteLine("YES CONFIRM STATE");
+                    Console.WriteLine(JsonConvert.SerializeObject(dialogAction.Slots));
                     dialogAction.Type = "Delegate";
                     res.DialogAction = dialogAction;
                     return res;//return Close(sessionAttr);
@@ -86,6 +87,7 @@ namespace DEFAULT
             dialogAction.IntentName = "OptionIntent";
             if (dialogAction.Slots["RemediationIndex"] == null)
                 dialogAction.Slots["RemediationIndex"] = code.ToString();
+            dialogAction.Slots["confirm"] = null;
             dialogAction.SlotToElicit = "confirm";
             List<string> rems = JsonConvert.DeserializeObject<List<string>>(sessionAttr["RemediationOptions"]);
             dialogAction.Message.Content = $"You have decided to {rems[code - 1]}. Say yes, or press 1 to confirm. Say no or press 2 to retry";
@@ -109,3 +111,4 @@ namespace DEFAULT
         }
     }
 }
+  
