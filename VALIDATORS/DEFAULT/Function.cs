@@ -27,7 +27,7 @@ namespace DEFAULT
             var sessionAttr = lexEvent.SessionAttributes ?? new Dictionary<string, string>();
             Console.WriteLine("----------- HANDLER SESSSION ATTR ---------------");
             Console.WriteLine(JsonConvert.SerializeObject(sessionAttr));
-            Console.WriteLine(JsonConvert.SerializeObject(lexEvent.SlotDetails));
+            Console.WriteLine(JsonConvert.SerializeObject(lexEvent.InvocationSource));
             
             switch (lexEvent.InvocationSource)
             {
@@ -61,7 +61,6 @@ namespace DEFAULT
                     dialogAction.Message.Content = sessionAttr["RemediationText"];
                     dialogAction.Slots["confirm"] = null;
                     dialogAction.Slots["RemediationIndex"] = null;
-                    dialogAction.IntentName = "OptionIntent";
                     res.DialogAction = dialogAction;
                     return res;
                 }
@@ -69,7 +68,6 @@ namespace DEFAULT
                 {
                     Console.WriteLine("YES CONFIRM STATE");
                     dialogAction.Type = "Delegate";
-                    dialogAction.IntentName= "OptionIntent";
                     res.DialogAction = dialogAction;
                     return res;//return Close(sessionAttr);
                 }
