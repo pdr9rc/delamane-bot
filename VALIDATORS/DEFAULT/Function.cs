@@ -67,7 +67,11 @@ namespace DEFAULT
                 else
                 {
                     Console.WriteLine("YES CONFIRM STATE");
-                    return Close(sessionAttr);
+                    dialogAction.Type = "Delegate";
+                    dialogAction.Slots["confirm"] = slots["confirm"];
+                    dialogAction.Slots["RemediationIndex"] = slots["RemediationIndex"];
+                    res.DialogAction = dialogAction;
+                    return res;//return Close(sessionAttr);
                 }
             int code = Validator.Validate(input, sessionAttr);
             if (code == -1)
