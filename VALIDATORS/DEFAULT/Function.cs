@@ -30,7 +30,7 @@ namespace DEFAULT
             switch (lexEvent.InvocationSource)
             {
                 case "FulfillmentCodeHook":
-                    return Close(sessionAttr);
+                    return Close(sessionAttr, lexEvent.CurrentIntent.Slots);
                case "DialogCodeHook":
                     return Validate(sessionAttr, lexEvent.InputTranscript, lexEvent.CurrentIntent.Slots);
                default:
@@ -105,14 +105,15 @@ namespace DEFAULT
             return res;
         }
 
-        public LexResponse Close(IDictionary<string, string> sessionAttr)
+        public LexResponse Close(IDictionary<string, string> sessionAttr, IDictionary<string, string> slots)
         {
             Console.WriteLine("----------- Close SESSSION ATTR ---------------");
             var res = new LexResponse();
             res.SessionAttributes = sessionAttr;
             var dialogAction = new LexResponse.LexDialogAction();
-            dialogAction.Type = "Close";
-            dialogAction.FulfillmentState = "Fulfilled";
+            dialogAction.Type = "Delegate";
+            dialogAction.Slots = (slots != null) ? slots : new Dictionary<string, string>();
+            //dialogAction.FulfillmentState = "Fulfilled";
             res.DialogAction = dialogAction;
             return res;
         }
