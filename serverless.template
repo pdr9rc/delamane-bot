@@ -76,13 +76,13 @@
           {
             "PolicyName": "DelamaneLexAccess",
             "PolicyDocument":  {
-                          "Action": "lambda:InvokeFunction",
-                          "Resource": {"Fn::GetAtt" : [ "defaultValidator", "Arn" ]},
-                          "Effect": "Allow",
-                          "Principal": {
-                            "Service": "lex.amazonaws.com"
-                          }
-                        }
+                "Action": "lambda:InvokeFunction",
+                "Resource": {"Fn::GetAtt" : [ "defaultValidator", "Arn" ]},
+                "Effect": "Allow",
+                "Principal": {
+                "Service": "lex.amazonaws.com"
+                }
+             }
           }
         ]
       }

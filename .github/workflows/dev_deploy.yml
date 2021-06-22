@@ -27,7 +27,7 @@ jobs:
             dotnet restore DELAMANE-BOT/BOT/BOT.csproj
             dotnet build DELAMANE-BOT/BOT/BOT.csproj --configuration Development
             dotnet publish DELAMANE-BOT/BOT/BOT.csproj -o ./staging/app/BOT /p:EnvironmentName=Development -r linux-x64
-    - name: deploy valitator
+    - name: deploy validator
       run: |
             sam deploy --template-file ./serverless.template --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND --stack-name delamane-bot --s3-bucket delamane-bot-github-action-bucket --no-fail-on-empty-changeset --debug
             echo "VALIDATOR_ARN=$(aws cloudformation describe-stacks --stack-name delamane-bot --query "Stacks[0].Outputs[?OutputKey=='validatorArn'].OutputValue" --output text)" >> $GITHUB_ENV
