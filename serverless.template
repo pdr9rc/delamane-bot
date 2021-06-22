@@ -76,7 +76,12 @@
           {
             "PolicyName": "DelamaneLexAccess",
             "PolicyDocument":  {
-                "Action": ["lambda:InvokeFunction","sts:AssumeRole"],
+                "Condition": {
+                    "ArnLike": {
+                        "AWS:SourceArn": "arn:aws:lex:*:*:intent:OptionIntent:*"
+                        }
+                 },
+                "Action": ["lambda:InvokeFunction"],
                 "Resource": {"Fn::GetAtt" : [ "defaultValidator", "Arn" ]},
                 "Effect": "Allow",
                 "Principal": {
