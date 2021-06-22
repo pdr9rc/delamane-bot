@@ -78,7 +78,7 @@
     }
   },
 "Outputs" : {
-  "VALIDATOR_ARN" : {
+  "validatorArn" : {
     "Description" : "Validator Arn",
     "Value" : {"Fn::GetAtt" : [ "defaultValidator", "Arn" ]}
   }
