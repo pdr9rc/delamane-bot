@@ -14,7 +14,7 @@ namespace DELAMANE_BOT
         //TODO, add checksums, add putbotalias
         async static Task Main(string[] args)
         {
-
+            Console.WriteLine(args[2]);
             PutBotRequest delamane = JsonConvert.DeserializeObject<PutBotRequest>(File.ReadAllText("delamane.json"));
             delamane.CreateVersion = true;
             var lex = new AmazonLexModelBuildingServiceClient(args[0], args[1], RegionEndpoint.EUCentral1);
