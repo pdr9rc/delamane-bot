@@ -76,7 +76,7 @@
           {
             "PolicyName": "DelamaneLexAccess",
             "PolicyDocument":  {
-                "Action": "lambda:InvokeFunction",
+                "Action": ["lambda:InvokeFunction","sts:AssumeRole"],
                 "Resource": {"Fn::GetAtt" : [ "defaultValidator", "Arn" ]},
                 "Effect": "Allow",
                 "Principal": {
