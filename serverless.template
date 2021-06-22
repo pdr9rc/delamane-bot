@@ -72,7 +72,18 @@
                     "Fn::GetAtt" : [ "delamaneBotRole", "Arn" ]
                 },
         "Policies": [
-          "AWSLambda_FullAccess"
+          "AWSLambda_FullAccess",
+          {
+            "PolicyName": "DelamaneLexAccess",
+            "PolicyDocument":  {
+                          "Action": "lambda:InvokeFunction",
+                          "Resource": {"Fn::GetAtt" : [ "defaultValidator", "Arn" ]},
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "lex.amazonaws.com"
+                          }
+                        }
+          }
         ]
       }
     }
