@@ -13,22 +13,23 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.101
-    - name: build api
-      run: |
-            dotnet build VALIDATORS/DEFAULT/DEFAULT.csproj --configuration Development
-            dotnet publish VALIDATORS/DEFAULT/DEFAULT.csproj -o ./staging/app/DEFAULT /p:EnvironmentName=Development
-
-            dotnet restore DELAMANE-BOT/DELAMANE-BOT.csproj
-            dotnet build DELAMANE-BOT/DELAMANE-BOT.csproj --configuration Development
-            dotnet publish DELAMANE-BOT/DELAMANE-BOT.csproj -o ./staging/app/DELAMANE-BOT /p:EnvironmentName=Development -r linux-x64
-            cd ./staging/app/DELAMANE-BOT
-            ./DELAMANE-BOT ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-central-1
-    - name: deploy
-      run: sam deploy --template-file ./serverless.template --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND --stack-name delamane-bot --s3-bucket delamane-bot-github-action-bucket --no-fail-on-empty-changeset --debug
+    - name: deploy valitator
+      run: |
+            sam deploy --template-file ./serverless.template --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND --stack-name delamane-bot --s3-bucket delamane-bot-github-action-bucket --no-fail-on-empty-changeset --debug
+            echo "VALIDATOR_ARN=$(echo aws cloudformation describe-stacks --stack-name delamane-bot --query "Stacks[0].Outputs[?OutputKey=='DbUrl'].OutputValue" --output text)" >> $GITHUB_ENV
+    - name: deploy bot
+      run: |
+            dotnet build DELAMANE-BOT/VALIDATOR/VALIDATOR.csproj --configuration Development
+            dotnet publish DELAMANE-BOT/VALIDATOR/VALIDATOR.csproj -o ./staging/app/VALIDATOR /p:EnvironmentName=Development
+
+            dotnet restore DELAMANE-BOT/BOT/BOT.csproj
+            dotnet build DELAMANE-BOT/BOT/BOT.csproj --configuration Development
+            dotnet publish DELAMANE-BOT/BOT/BOT.csproj -o ./staging/app/BOT /p:EnvironmentName=Development -r linux-x64
+            cd ./staging/app/BOT
+            ./BOT ${{ secrets.AWS_ACCESS_KEY_ID }} ${{ secrets.AWS_SECRET_ACCESS_KEY }} $VALIDATOR_ARN

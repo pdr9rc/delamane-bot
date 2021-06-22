@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DELAMANE-BOT", "DELAMANE-BOT.csproj", "{BED887AF-EEF1-4F8B-9F29-44688CA2A8D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BOT", "BOT\BOT.csproj", "{BED887AF-EEF1-4F8B-9F29-44688CA2A8D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VALIDATOR", "VALIDATOR\VALIDATOR.csproj", "{26585FD2-2E0A-43BF-913A-FBC61D1DD341}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BED887AF-EEF1-4F8B-9F29-44688CA2A8D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BED887AF-EEF1-4F8B-9F29-44688CA2A8D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BED887AF-EEF1-4F8B-9F29-44688CA2A8D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26585FD2-2E0A-43BF-913A-FBC61D1DD341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26585FD2-2E0A-43BF-913A-FBC61D1DD341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26585FD2-2E0A-43BF-913A-FBC61D1DD341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26585FD2-2E0A-43BF-913A-FBC61D1DD341}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

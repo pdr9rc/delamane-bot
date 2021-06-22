@@ -63,9 +63,9 @@
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Runtime": "dotnetcore3.1",
-        "FunctionName" : "DEFAULT_VALIDATOR",
-        "Handler": "DEFAULT::DEFAULT.Function::FunctionHandler",
-        "CodeUri": "./staging/app/DEFAULT",
+        "FunctionName" : "VALIDATOR",
+        "Handler": "VALIDATOR::VALIDATOR.Function::FunctionHandler",
+        "CodeUri": "./staging/app/VALIDATOR",
         "MemorySize": 256,
         "Timeout": 30,
         "Role": { 
@@ -76,5 +76,11 @@
         ]
       }
     }
+  },
+"Outputs" : {
+  "VALIDATOR_ARN" : {
+    "Description" : "Validator Arn",
+    "Value" : {"Fn::GetAtt" : [ "defaultValidator", "Arn" ]}
   }
+}
 }

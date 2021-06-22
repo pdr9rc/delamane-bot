@@ -1,5 +1,11 @@
 {
-    "name": "Delamane",
+  "metadata": {
+    "schemaVersion": "1.0",
+    "importType": "LEX",
+    "importFormat": "JSON"
+  },
+  "resource": {
+    "name": "TestBot",
     "voiceId": "Brian",
     "childDirected": false,
     "locale": "en-GB",
@@ -8,7 +14,7 @@
       "messages": [
         {
           "contentType": "PlainText",
-          "content": "Sorry, can you please repeat that fuckface?"
+          "content": "Sorry, can you please repeat that?"
         }
       ],
       "maxAttempts": 5
@@ -17,11 +23,12 @@
       "messages": [
         {
           "contentType": "PlainText",
-          "content": "Sorry, I could not understand. Go fuck yourself."
+          "content": "Sorry, I could not understand. Goodbye."
         }
       ]
     },
     "detectSentiment": true,
     "nluIntentConfidenceThreshold": 0.7,
     "enableModelImprovements": true
+  }
 }

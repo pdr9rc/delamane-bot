@@ -1,0 +1,56 @@
+{
+  "name": "OptionIntent",
+  "fulfillmentActivity": {
+    "type": "ReturnIntent"
+  },
+  "sampleUtterances": [
+    "One",
+    "Yes",
+    "No",
+    "Three",
+    "Two",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine"
+  ],
+  "slots": [
+    {
+      "sampleUtterances": [],
+      "slotType": "AMAZON.AlphaNumeric",
+      "obfuscationSetting": "NONE",
+      "slotConstraint": "Required",
+      "valueElicitationPrompt": {
+        "messages": [
+          {
+            "contentType": "PlainText",
+            "content": "Say yes to confirm or no to retry"
+          }
+        ],
+        "maxAttempts": 2
+      },
+      "priority": 1,
+      "name": "confirm"
+    },
+    {
+      "sampleUtterances": [],
+      "slotType": "AMAZON.AlphaNumeric",
+      "obfuscationSetting": "NONE",
+      "slotConstraint": "Required",
+      "valueElicitationPrompt": {
+        "messages": [
+          {
+            "contentType": "PlainText",
+            "content": "        "
+          }
+        ],
+        "responseCard": "{\"version\":1,\"contentType\":\"application/vnd.amazonaws.card.generic\"}",
+        "maxAttempts": 5
+      },
+      "priority": 2,
+      "name": "RemediationIndex"
+    }
+  ]
+}

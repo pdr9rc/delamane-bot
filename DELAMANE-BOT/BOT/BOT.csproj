@@ -8,18 +8,14 @@
 
   <ItemGroup>
     <None Remove="delamane.json" />
-    <None Remove="Intents\default-intent.json" />
-    <None Remove="Intents\my-name-is-delamane.json" />
+    <None Remove="Intents\option-intent.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="delamane.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Intents\default-intent.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Intents\my-name-is-delamane.json">
+    <EmbeddedResource Include="Intents\option-intent.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
