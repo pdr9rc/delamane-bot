@@ -78,7 +78,7 @@
             "PolicyDocument":  {
                 "Condition": {
                     "ArnLike": {
-                        "AWS:SourceArn": "arn:aws:lex:*:*:intent:OptionIntent:*"
+                        "AWS:SourceArn": "arn:aws:lex:*:*:intent:*:*"
                         }
                  },
                 "Action": ["lambda:InvokeFunction"],
