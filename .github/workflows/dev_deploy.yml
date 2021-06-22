@@ -30,7 +30,7 @@ jobs:
     - name: deploy valitator
       run: |
             sam deploy --template-file ./serverless.template --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND --stack-name delamane-bot --s3-bucket delamane-bot-github-action-bucket --no-fail-on-empty-changeset --debug
-            echo "VALIDATOR_ARN=$(echo aws cloudformation describe-stacks --stack-name delamane-bot --query "Stacks[0].Outputs[?OutputKey=='validatorArn'].OutputValue" --output text)" >> $GITHUB_ENV
+            echo "VALIDATOR_ARN=$(aws cloudformation describe-stacks --stack-name delamane-bot --query "Stacks[0].Outputs[?OutputKey=='validatorArn'].OutputValue" --output text)" >> $GITHUB_ENV
     - name: deploy bot
       run: |
             cd ./staging/app/BOT
